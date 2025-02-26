@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔠 Vowels & Consonants Checker</title>
+    <link rel="stylesheet" href="./assets/bootstrap.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body class="d-flex justify-content-center align-items-center">
+    <div class="custom-card">
+        <h1 class="text-primary font-weight-bold mb-4">🔠 Vowels & Consonants Checker</h1>
+
+        <div class="form-group">
+            <input type="text" id="string" placeholder="Enter a sentence..." class="form-control">
+            <span class="input-icon">✍️</span>
+        </div>
+
+        <button id="submit" class="btn btn-primary w-100 mt-3">Check Vowels & Consonants 🔍</button>
+        <button id="clear" class="btn btn-secondary w-100 mt-3">Clear ❌</button>
+        <button id="home" class="btn btn-info w-100 mt-3">Home 🏠</button>
+
+        <div class="form-group mt-3">
+            <input type="text" id="vowel" placeholder="Vowel count will appear here" class="form-control" readonly>
+            <span class="input-icon">🔤</span>
+        </div>
+        <div class="form-group mt-3">
+            <input type="text" id="conso" placeholder="Consonant count will appear here" class="form-control" readonly>
+            <span class="input-icon">🔡</span>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./assets/js/jqurey.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            function checkValid() {
+                let input = $("#string").val().trim();
+                if (input === "") {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "⚠️ Please enter a valid string!",
+                        showConfirmButton: true
+                    });
+                    return false;
+                }
+                return true;
+            }
+
+            function checkVowelsConsonants() {
+                let inputStr = $("#string").val().trim().toLowerCase();
+                let vowels = "aeiou";
+                let vowelsCount = 0, consonantsCount = 0;
+
+                for (let letter of inputStr) {
+                    if (vowels.includes(letter)) {
+                        vowelsCount++;
+                    } else if (letter >= 'a' && letter <= 'z') {
+                        consonantsCount++;
+                    }
+                }
+
+                $("#vowel").val(`Vowels: ${vowelsCount}`);
+                $("#conso").val(`Consonants: ${consonantsCount}`);
+            }
+
+            $("#submit").click(function () {
+                if (checkValid()) checkVowelsConsonants();
+            });
+
+            $("#clear").click(function () {
+                $("#string, #vowel, #conso").val("");
+            });
+
+            $("#home").click(function () {
+                window.location.href = "/";
+            });
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔄 Palindrome Checker</title>
+    <link rel="stylesheet" href="./assets/bootstrap.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body class="d-flex justify-content-center align-items-center">
+    <div class="custom-card">
+        <h1 class="text-primary font-weight-bold mb-4">🔄 Palindrome Checker</h1>
+
+        <div class="form-group">
+            <input type="text" id="name" placeholder="Enter a word..." class="form-control">
+            <span class="input-icon">✍️</span>
+        </div>
+
+        <button id="submit" class="btn btn-primary btn-block w-100 mt-3">Check Palindrome 🔍</button>
+        <button id="clear" class="btn btn-secondary w-100 mt-3">Clear ❌</button>
+        <button id="home" class="btn btn-info w-100 mt-3">Home 🏠</button>
+
+        <div class="form-group mt-3">
+            <input type="text" id="ans" placeholder="Result will appear here" class="form-control" readonly>
+            <span class="input-icon">📌</span>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./assets/js/jqurey.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            function checkValid() {
+                let input = $("#name").val().trim();
+                if (input === "") {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "⚠️ Please enter a word!",
+                        showConfirmButton: true,
+                    });
+                    return false;
+                }
+                return true;
+            }
+
+            function palindrome() {
+                let word = $("#name").val().toLowerCase().replace(/[^a-z0-9]/gi, '');
+                let reversed = word.split('').reverse().join('');
+                if (word === reversed) {
+                    $("#ans").val("✅ It's a palindrome!");
+                } else {
+                    $("#ans").val("❌ It's not a palindrome.");
+                }
+
+                $("#ans").addClass("fade-in");
+            }
+
+            $("#submit").click(function () {
+                if (checkValid()) palindrome();
+            });
+
+            $("#clear").click(function () {
+                $("#name, #ans").val("");
+            });
+
+            $("#home").click(function () {
+                window.location.href = "/";
+            });
+        });
+    </script>
+</body>
+
+</html>

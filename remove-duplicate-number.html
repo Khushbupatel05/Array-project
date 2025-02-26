@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔢 Remove Duplicate Numbers</title>
+    <link rel="stylesheet" href="./assets/bootstrap.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body class="d-flex justify-content-center align-items-center">
+    <div class="custom-card">
+        <h1 class="text-primary font-weight-bold mb-4">🔢 Remove Duplicate Numbers</h1>
+
+        <div class="form-group">
+            <input type="text" id="num" placeholder="Enter numbers separated by commas..." class="form-control">
+            <span class="input-icon">📝</span>
+        </div>
+
+        <button id="submit" class="btn btn-primary btn-block w-100 mt-3">Remove Duplicates 🚫</button>
+        <button id="clear" class="btn btn-secondary w-100 mt-3">Clear ❌</button>
+        <button id="home" class="btn btn-info w-100 mt-3">Home 🏠</button>
+
+        <div class="form-group mt-3">
+            <input type="text" id="unique" placeholder="Unique numbers will appear here" class="form-control" readonly>
+            <span class="input-icon">✅</span>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./assets/js/jqurey.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            function checkValid() {
+                let input = $("#num").val().trim();
+                if (input === "") {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "⚠️ Please enter some numbers!",
+                        showConfirmButton: true,
+                    });
+                    return false;
+                }
+                return true;
+            }
+
+            function removeDuplicates() {
+                let userInput = $("#num").val().trim();
+                let numbers = userInput.split(",").map(Number).filter(n => !isNaN(n));
+                let uniqueNumbers = [...new Set(numbers)];
+
+                if (uniqueNumbers.length === 0) {
+                    $("#unique").val("❌ No valid numbers entered.");
+                } else {
+                    $("#unique").val(`✅ Unique numbers: ${uniqueNumbers.join(", ")}`);
+                }
+
+                $("#unique").addClass("fade-in");
+            }
+
+            $("#submit").click(function () {
+                if (checkValid()) removeDuplicates();
+            });
+
+            $("#clear").click(function () {
+                $("#num, #unique").val("");
+            });
+
+            $("#home").click(function () {
+                window.location.href = "/";
+            });
+        });
+    </script>
+</body>
+
+</html>

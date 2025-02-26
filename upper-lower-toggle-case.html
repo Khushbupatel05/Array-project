@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔤 String Case Converter</title>
+    <link rel="stylesheet" href="./assets/bootstrap.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body class="d-flex justify-content-center align-items-center">
+    <div class="custom-card">
+        <h1 class="text-primary font-weight-bold mb-4">🔤 String Case Converter</h1>
+
+        <div class="form-group">
+            <input type="text" id="val" placeholder="Enter your string here..." class="form-control">
+            <span class="input-icon">✍️</span>
+        </div>
+
+        <button id="upper" class="btn btn-primary btn-block w-100 mt-3">Convert to UPPERCASE 🔡</button>
+        <button id="lower" class="btn btn-success btn-block w-100 mt-3">Convert to lowercase 🔠</button>
+        <button id="toggle" class="btn btn-warning btn-block w-100 mt-3">Toggle Case 🔁</button>
+        <button id="clear" class="btn btn-secondary w-100 mt-3">Clear ❌</button>
+        <button id="home" class="btn btn-info w-100 mt-3">Home 🏠</button>
+
+        <div class="form-group mt-3">
+            <input type="text" id="ans" placeholder="Converted string will appear here" class="form-control" readonly>
+            <span class="input-icon">📌</span>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./assets/js/jqurey.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            function checkValid() {
+                let input = $("#val").val().trim();
+                if (input === "") {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "⚠️ Please enter a string!",
+                        showConfirmButton: true,
+                    });
+                    return false;
+                }
+                return true;
+            }
+
+            function convertUpper() {
+                $("#ans").val($("#val").val().toUpperCase()).addClass("fade-in");
+            }
+
+            function convertLower() {
+                $("#ans").val($("#val").val().toLowerCase()).addClass("fade-in");
+            }
+
+            function convertToggle() {
+                let inputStr = $("#val").val();
+                let toggledStr = [...inputStr].map(char => 
+                    char === char.toUpperCase() ? char.toLowerCase() : char.toUpperCase()
+                ).join("");
+                $("#ans").val(toggledStr).addClass("fade-in");
+            }
+
+            $("#upper").click(function () {
+                if (checkValid()) convertUpper();
+            });
+
+            $("#lower").click(function () {
+                if (checkValid()) convertLower();
+            });
+
+            $("#toggle").click(function () {
+                if (checkValid()) convertToggle();
+            });
+
+            $("#clear").click(function () {
+                $("#val, #ans").val("");
+            });
+
+            $("#home").click(function () {
+                window.location.href = "/";
+            });
+        });
+    </script>
+
+</body>
+
+</html>
